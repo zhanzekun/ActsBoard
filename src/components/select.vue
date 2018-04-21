@@ -28,14 +28,6 @@
 
 <script>
 
-let years = []
-for (var i = 2000; i <= 2030; i++) {
-  years.push({
-    name: i + '年',
-    value: i + ''
-  })
-}
-
 import { Selector, Group, PopupPicker, Picker} from "vux";
 import { Flexbox ,FlexboxItem} from "vux";
 
@@ -50,7 +42,6 @@ export default {
   },
   data() {
     return {
-      years,
       value_time: ["未来所有"],
       value_type:["全部类别"],
       // 这个格式好迷噢

@@ -1,7 +1,16 @@
 <template>
   <div>
-     <Select @select="get_activity_after_select"></Select>
-     <activityOutline :activity="activity" v-for="activity in activities" :key="activity.id" @click="to_act_detail(activity.id)">
+    <div class="bar-background">
+        <flexbox>
+      <flexbox-item>
+         <div class="more-act">查看更多活动</div>
+      </flexbox-item>
+      <flexbox-item>
+        <div class="to-setting">推送不满意?</div>
+      </flexbox-item>
+    </flexbox>
+    </div>
+     <activityOutline :activity="activity" v-for="activity in activities" :key="activity.id">
 
      </activityOutline>
      <!-- <tab></tab> -->
@@ -9,16 +18,16 @@
 </template>
 
 <script>
-import Select from "./select";
 import activityOutline from "./activityOutline";
 import axios from "axios";
-import api from "../api"
+import api from "../api";
+import { Flexbox, FlexboxItem } from 'vux'
 // import tab from './tab'
 export default {
   components: {
-    Select,
-    activityOutline
+    activityOutline,
     // tab
+    Flexbox, FlexboxItem
   },
   name: "tab",
   data() {
@@ -36,9 +45,7 @@ export default {
           // location: "华南理工大学", // 活动地点
           // act_detail: "ActsBoard是一家五百强企业，融资400个亿..." // 活动内容
         }
-      ],
-      time:'',
-      type:''
+      ]
     };
   },
   methods: {
@@ -59,26 +66,6 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    },
-    get_activities_by_type(time,type){
-      var _this = this;
-      axios
-        .get(
-          api.get_activity_after_select(time,type)
-        )
-        .then(function(response) {
-          console.log(response.data);
-        
-         // _this.activities = JSON.parse(response.data).data;
-          _this.activities = response.data.data;
-          // console.log(_this.activities);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    to_act_detail(id){
-      this.$router.push({path:'/activityDetail'});
     }
   },
   mounted: function() {
@@ -87,6 +74,31 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped>
+flexbox{
+    height: 100%;
+}
+.bar-background{
+    margin-top:1.5rem;
+    height: 2rem;
+}
+.more-act{
+    background-color: white;
+    height: 2rem;
+    margin-left: 2rem;
+    text-align: center;
+    border-radius: 1rem;
+    color: #2298E1;
+    font-weight: bold;
+
+}
+.to-setting{
+    background-color: white;
+    height: 2rem;
+    margin-right: 2rem;
+    text-align: center;
+    border-radius: 1rem;
+    font-weight: bold;
+}
 
 </style>

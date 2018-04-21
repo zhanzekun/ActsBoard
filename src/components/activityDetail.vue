@@ -1,32 +1,36 @@
-<template><div>
-  <div>{{act.name}}</div>
-  <div>{{act.act_detail}}</div>
-  <img :src="act.url" alt="">
-  <div class="blue-circle"></div>
-  <div>截止至： {{act.valid_date}}</div>
-  <div class="blue-circle"></div>
-  <div>活动类型： {{act.type}}</div>
-  <div class="blue-circle"></div>
-  <div>活动地点：  {{act.location}}</div>
-  <div class="blue-circle"></div>
-  <div>参与方式：{{act.apply_way}}</div>
-  <div class="blue-circle"></div>
-  <div>活动所属学校：  {{act.school}}</div>
-  <button>分享一下</button>
+<template><div class="background">
+  <div class="act-name">{{act.name}}</div>
+  <div class="act-detail">{{act.act_detail}}</div>
+  <div class="img-background"><img :src="act.url" class="img"></div>
+  <div class="column"><div class="blue-circle"></div>
+  <div class="act-valid-date">截止至： {{act.valid_date}}</div></div>
+  <div class="column"><div class="blue-circle"></div>
+  <div class="act-type">活动类型： {{act.type}}</div></div>
+  <div class="column"><div class="blue-circle"></div>
+  <div class="act-location">活动地点：  {{act.location}}</div></div>
+  <div class="column"><div class="blue-circle"></div>
+  <div class="act-apply-way">参与方式：{{act.apply_way}}</div></div>
+  <div class="column"><div class="blue-circle"></div>
+  <div class="act-school">活动所属学校：  {{act.school}}</div></div>
+  <x-button type="primary" link="/demo" class="button">分享一下！</x-button>
 </div></template>
 
 <script>
-import { Selector } from "vux";
+import { XButton } from 'vux'
+import api from "../api.js";
 import axios from "axios";
 export default {
+  components: {
+    XButton
+  },
   props: {
     id: {
-      type: Object,
+      type:Number,
      // require: true,
       default: 0
     }
   },
-  name: "tab",
+  // name: "tab",
   data() {
     return {
       value: "今天",
@@ -58,8 +62,9 @@ export default {
           console.log(response.data);
 
           // _this.activities = JSON.parse(response.data).data;
+          console.log(_this.act);
           _this.act = response.data.data;
-          // console.log(_this.activities);
+          console.log(_this.act);
         })
         .catch(function(error) {
           console.log(error);
@@ -67,7 +72,52 @@ export default {
     }
   },
   mounted: function() {
-    get_activity_by_id(this.id);
+    // console(api.get_activity_by_id(id))
+    console.log(this.id);
+    this.get_activity_by_id(this.id);
   }
 };
 </script>
+<style scoped>
+.act-name{
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+}
+.act-detail{
+  font-size: 0.8rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+}
+.img-background{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  justify-content:center;
+}
+.img{
+  border-radius:1rem;
+  height: 40vh;
+  width:70vw;
+}
+.blue-circle{
+  margin-right: 1rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  background-color: #2298E1;
+  border-radius:1rem;
+}
+.column{
+  margin-left: 20%;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+.button{
+  margin-top: 1.3rem;
+}
+</style>
