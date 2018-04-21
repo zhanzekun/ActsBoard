@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       value: "今天",
+      act_id:"",
       act: {
         id: 1,
         type: "讲座",
@@ -73,8 +74,8 @@ export default {
   },
   mounted: function() {
     // console(api.get_activity_by_id(id))
-    console.log(this.id);
-    this.get_activity_by_id(this.id);
+    this.act_id = this.$route.params.act_id;
+    this.get_activity_by_id(this.act_id);
   }
 };
 </script>

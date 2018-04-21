@@ -12,7 +12,7 @@
 import Select from "./select";
 import activityOutline from "./activityOutline";
 import axios from "axios";
-import api from "../api"
+import api from "../api";
 // import tab from './tab'
 export default {
   components: {
@@ -37,8 +37,8 @@ export default {
           // act_detail: "ActsBoard是一家五百强企业，融资400个亿..." // 活动内容
         }
       ],
-      time:'',
-      type:''
+      time: "",
+      type: ""
     };
   },
   methods: {
@@ -46,13 +46,11 @@ export default {
       // console.log(api.get_acts);
       var _this = this;
       axios
-        .get(
-          api.get_acts
-        )
+        .get(api.get_acts)
         .then(function(response) {
           console.log(response.data);
-        
-         // _this.activities = JSON.parse(response.data).data;
+
+          // _this.activities = JSON.parse(response.data).data;
           _this.activities = response.data.data;
           // console.log(_this.activities);
         })
@@ -60,16 +58,14 @@ export default {
           console.log(error);
         });
     },
-    get_activities_by_type(time,type){
+    get_activities_by_type(time, type) {
       var _this = this;
       axios
-        .get(
-          api.get_activity_after_select(time,type)
-        )
+        .get(api.get_activity_after_select(time, type))
         .then(function(response) {
           console.log(response.data);
-        
-         // _this.activities = JSON.parse(response.data).data;
+
+          // _this.activities = JSON.parse(response.data).data;
           _this.activities = response.data.data;
           // console.log(_this.activities);
         })
@@ -77,8 +73,13 @@ export default {
           console.log(error);
         });
     },
-    to_act_detail(id){
-      this.$router.push({path:'/activityDetail'});
+    to_act_detail(id) {
+      this.$router.push({
+        path: "/activityDetail",
+        params: {
+          act_id: id,
+        }
+      });
     }
   },
   mounted: function() {

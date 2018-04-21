@@ -16,7 +16,7 @@ export default new Router({
       component: activityDetail
     },
     {
-      path: '/activities',
+      path: '/',
       name: 'activities',
       component: activities
     },
@@ -31,7 +31,7 @@ export default new Router({
       component:selectSchool
     },
     {
-      path:'/',
+      path:'/actPushing',
       name:'actPushing',
       component:actPushing
     }

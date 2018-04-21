@@ -64,6 +64,7 @@ export default {
   methods: {
     onChange() {
       // todo
+      this.$emit('select',this.value_time[0],this.value_type[0])
     }
   }
 };
