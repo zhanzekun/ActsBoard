@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       value: "今天",
-      act_id:"",
+      act_id:0,
       act: {
         id: 1,
         type: "讲座",
@@ -63,9 +63,9 @@ export default {
           console.log(response.data);
 
           // _this.activities = JSON.parse(response.data).data;
-          console.log(_this.act);
+          //console.log(_this.act);
           _this.act = response.data.data;
-          console.log(_this.act);
+          //console.log(_this.act);
         })
         .catch(function(error) {
           console.log(error);
@@ -74,6 +74,8 @@ export default {
   },
   mounted: function() {
     // console(api.get_activity_by_id(id))
+    // console.log(this);
+    console.log("这是已经跳转到活动详情组件的id号码" + this.$route.params.act_id);
     this.act_id = this.$route.params.act_id;
     this.get_activity_by_id(this.act_id);
   }

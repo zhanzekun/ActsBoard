@@ -14,7 +14,8 @@
 <script>
 import { PopupPicker, Group, XButton } from "vux";
 import axios from "axios";
-import api from "api";
+import api from "../api";
+import util from '../util'
 
 export default {
   components: {
@@ -67,6 +68,9 @@ export default {
   },
   mounted: function() {
     get_user_init_setting();
+  },
+  created:function(){
+    util.getCode();
   }
 };
 </script>

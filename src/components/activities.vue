@@ -1,7 +1,7 @@
 <template>
   <div>
-     <Select @select="get_activity_after_select"></Select>
-     <activityOutline :activity="activity" v-for="activity in activities" :key="activity.id" @click="to_act_detail(activity.id)">
+     <Select @select="get_activities_by_type"></Select>
+     <activityOutline :activity="activity" v-for="activity in activities" :key="activity.id" @click.native="to_act_detail(activity.id)">
 
      </activityOutline>
      <!-- <tab></tab> -->
@@ -23,6 +23,7 @@ export default {
   name: "tab",
   data() {
     return {
+      to_id:0,
       activities: [
         {
           // id: 1,
@@ -59,6 +60,7 @@ export default {
         });
     },
     get_activities_by_type(time, type) {
+      console.log('这是筛选过的数据' + time + type)
       var _this = this;
       axios
         .get(api.get_activity_after_select(time, type))
@@ -74,10 +76,12 @@ export default {
         });
     },
     to_act_detail(id) {
+      console.log("即将跳转的活动id是" + id);
+      // this.to_id = id;
       this.$router.push({
-        path: "/activityDetail",
+        name: "activityDetail",
         params: {
-          act_id: id,
+          act_id: id
         }
       });
     }

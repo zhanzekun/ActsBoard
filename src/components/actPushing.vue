@@ -2,10 +2,10 @@
   <div>
     <div class="bar-background">
         <flexbox>
-      <flexbox-item>
+      <flexbox-item @click.native="to_activities">
          <div class="more-act">查看更多活动</div>
       </flexbox-item>
-      <flexbox-item>
+      <flexbox-item  @click.native="to_setting">
         <div class="to-setting">推送不满意?</div>
       </flexbox-item>
     </flexbox>
@@ -21,13 +21,15 @@
 import activityOutline from "./activityOutline";
 import axios from "axios";
 import api from "../api";
-import { Flexbox, FlexboxItem } from 'vux'
+import util from "../util";
+import { Flexbox, FlexboxItem } from "vux";
 // import tab from './tab'
 export default {
   components: {
     activityOutline,
     // tab
-    Flexbox, FlexboxItem
+    Flexbox,
+    FlexboxItem
   },
   name: "tab",
   data() {
@@ -53,52 +55,57 @@ export default {
       // console.log(api.get_acts);
       var _this = this;
       axios
-        .get(
-          api.get_acts
-        )
+        .get(api.get_acts) //这个api没换成推荐的API
         .then(function(response) {
           console.log(response.data);
-        
-         // _this.activities = JSON.parse(response.data).data;
+
+          // _this.activities = JSON.parse(response.data).data;
           _this.activities = response.data.data;
           // console.log(_this.activities);
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    to_activities() {
+      this.$router.push({ path: "/" });
+    },
+    to_setting() {
+      this.$router.push({ path: "/setting" });
     }
   },
   mounted: function() {
     this.get_activities();
+  },
+  created: function() {
+    util.getCode();
   }
 };
 </script>
 
 <style scoped>
-flexbox{
-    height: 100%;
+flexbox {
+  height: 100%;
 }
-.bar-background{
-    margin-top:1.5rem;
-    height: 2rem;
+.bar-background {
+  margin-top: 1.5rem;
+  height: 2rem;
 }
-.more-act{
-    background-color: white;
-    height: 2rem;
-    margin-left: 2rem;
-    text-align: center;
-    border-radius: 1rem;
-    color: #2298E1;
-    font-weight: bold;
-
+.more-act {
+  background-color: white;
+  height: 2rem;
+  margin-left: 2rem;
+  text-align: center;
+  border-radius: 1rem;
+  color: #2298e1;
+  font-weight: bold;
 }
-.to-setting{
-    background-color: white;
-    height: 2rem;
-    margin-right: 2rem;
-    text-align: center;
-    border-radius: 1rem;
-    font-weight: bold;
+.to-setting {
+  background-color: white;
+  height: 2rem;
+  margin-right: 2rem;
+  text-align: center;
+  border-radius: 1rem;
+  font-weight: bold;
 }
-
 </style>

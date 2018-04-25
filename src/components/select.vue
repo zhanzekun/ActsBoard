@@ -8,7 +8,7 @@
             <option v-for='one in timeList' :key='one' :value='value_time'>{{one}}</option>
         </select> -->
       <!-- <selector placeholder="请选择时间" v-model="value_time" :options="timeList"></selector> -->
-      <popup-picker :data="timeList" v-model="value_time" :placeholder="value_time[0]"></popup-picker>
+      <popup-picker :data="timeList" v-model="value_time" :placeholder="value_time[0]" @on-change="onChange"></popup-picker>
           </group>
         </div>
       </flexbox-item>
@@ -18,7 +18,7 @@
             <!-- <select v-model='value_type'>
             <option v-for='one in plainList' :key='one' :value='value_type'>{{one}}</option>
         </select> -->
-         <popup-picker :data="typeList" v-model="value_type" :placeholder="value_type[0]"></popup-picker>
+         <popup-picker :data="typeList" v-model="value_type" :placeholder="value_type[0]"  @on-change="onChange"></popup-picker>
           </group>
         </div>
       </flexbox-item>
@@ -27,14 +27,13 @@
 </template>
 
 <script>
-
-import { Selector, Group, PopupPicker, Picker} from "vux";
-import { Flexbox ,FlexboxItem} from "vux";
+import { Selector, Group, PopupPicker, Picker } from "vux";
+import { Flexbox, FlexboxItem } from "vux";
 
 export default {
   components: {
     PopupPicker,
-     Picker,
+    Picker,
     Group,
     Selector,
     Flexbox,
@@ -42,29 +41,35 @@ export default {
   },
   data() {
     return {
-      value_time: ["未来所有"],
-      value_type:["全部类别"],
+      value_time: ["所有"],
+      value_type: ["全部类别"],
       // 这个格式好迷噢
-      timeList: [
-        ["未来所有",
-        "未来三天",
-        "未来七天"
-       ]
-      ],
-      typeList:[
-        ["全部类别",
-        "招聘会",
-        "宣讲会",
-        "校组织活动",
-        "讲座",
-        "体育活动"]
+      timeList: [["所有", "未来三天", "未来七天"]],
+      typeList: [
+        [
+          "全部类别",
+          "社团招新",
+          "企业宣讲",
+          "公益",
+          "讲座",
+          "比赛",
+          "运动",
+          "其他"
+        ]
       ]
     };
   },
   methods: {
     onChange() {
       // todo
-      this.$emit('select',this.value_time[0],this.value_type[0])
+      console.log("select 组件提交")
+     // console.log(this.value_type[0])
+      if (this.value_time[0] == "所有")
+        this.$emit("select", 0, this.value_type[0]);
+      if (this.value_time[0] == "未来三天")
+        this.$emit("select", 3, this.value_type[0]);
+      if (this.value_time[0] == "未来七天")
+        this.$emit("select", 7, this.value_type[0]);
     }
   }
 };
@@ -77,10 +82,10 @@ export default {
   border-radius: 4px;
   background-clip: padding-box;
 }
-.short{
+.short {
   margin-left: 2rem;
 }
-.temp{
+.temp {
   margin-left: 1rem;
   margin-right: 2rem;
 }
